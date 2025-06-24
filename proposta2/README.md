@@ -2,7 +2,7 @@
 
 
 
-##3 Cenário Atual e Análise Crítica
+### Cenário Atual e Análise Crítica
 
 O cenário hipotético apresenta um sistema de scrapping que, ao detectar um bloqueio de IP por parte do site alvo, reage provisionando uma nova instância Lambda com um novo IP público. Embora a intenção seja contornar o bloqueio, essa abordagem introduz graves problemas:
 
