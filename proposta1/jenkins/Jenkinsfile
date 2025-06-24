@@ -1,0 +1,102 @@
+pipeline {
+    agent {
+        kubernetes {
+            cloud 'kubernetes'
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: docker
+    image: docker:dind
+    command: ['cat']
+    tty: true
+    securityContext:
+      privileged: true
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl
+    command: ['cat']
+    tty: true
+'''
+        }
+    }
+
+    environment {
+        // --- PREENCHA COM SEUS DADOS ---
+        // Exemplo: 123456789012.dkr.ecr.us-east-1.amazonaws.com/minha-app
+        ECR_REPO = 'SUA_CONTA_AWS.dkr.ecr.SUA_REGIAO.amazonaws.com/minha-app'
+        APP_NAME = 'minha-app'
+        // Exemplo: https://github.com/warlleybatista/desafio-devops-manifests.git
+        GIT_MANIFESTS_REPO = 'https://github.com/SEU_USUARIO/SEU_REPO_MANIFESTS.git'
+        GIT_MANIFESTS_BRANCH_HOMOLOG = 'homolog'
+        GIT_MANIFESTS_BRANCH_PROD = 'main'
+        // --- FIM DOS DADOS A PREENCHER ---
+    }
+
+    stages {
+        stage('Build and Push Image') {
+            steps {
+                script {
+                    sh "aws ecr get-login-password --region SUA_REGIAO | docker login --username AWS --password-stdin "
+                    def imageTag = "v${env.BUILD_NUMBER}"
+                    sh "docker build -t : ./proposta1/app-code"
+                    sh "docker push :"
+                    env.IMAGE_TAG = imageTag
+                }
+            }
+        }
+
+        stage('Deploy to Homologation (GitOps)') {
+            steps {
+                script {
+                    echo "Atualizando manifests no branch ${GIT_MANIFESTS_BRANCH_HOMOLOG} do repositório GitOps..."
+                    sh "git clone ${GIT_MANIFESTS_REPO} manifests_homolog"
+                    dir('manifests_homolog') {
+                        sh "git checkout ${GIT_MANIFESTS_BRANCH_HOMOLOG}"
+                        sh "sed -i 's|image: .*|image: ${ECR_REPO}:${env.IMAGE_TAG}|g' ./minha-app-homolog.yaml"
+                        sh "git config user.email 'jenkins@example.com'"
+                        sh "git config user.name 'Jenkins CI'"
+                        sh "git add ."
+                        sh "git commit -m 'feat(homolog): Deploy app ${env.IMAGE_TAG} via Jenkins'"
+                        sh "git push origin ${GIT_MANIFESTS_BRANCH_HOMOLOG}"
+                    }
+                    echo "Alteração submetida ao Git. Argo CD detectará e fará o deploy automático em Homologação."
+                }
+            }
+        }
+
+        stage('Manual Approval for Production') {
+            steps {
+                input message: 'Promover para Produção? (Aprovar manualmente)', ok: 'Aprovar'
+            }
+        }
+
+        stage('Deploy to Production (GitOps)') {
+            steps {
+                script {
+                    echo "Atualizando manifests no branch ${GIT_MANIFESTS_BRANCH_PROD} do repositório GitOps..."
+                    sh "git clone ${GIT_MANIFESTS_REPO} manifests_prod"
+                    dir('manifests_prod') {
+                        sh "git checkout ${GIT_MANIFESTS_BRANCH_PROD}"
+                        sh "sed -i 's|image: .*|image: ${ECR_REPO}:${env.IMAGE_TAG}|g' ./minha-app-prod.yaml"
+                        sh "git config user.email 'jenkins@example.com'"
+                        sh "git config user.name 'Jenkins CI'"
+                        sh "git add ."
+                        sh "git commit -m 'feat(prod): Deploy app ${env.IMAGE_TAG} via Jenkins'"
+                        sh "git push origin ${GIT_MANIFESTS_BRANCH_PROD}"
+                    }
+                    echo "Alteração submetida ao Git. Argo CD detectará e fará o deploy automático em Produção."
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline concluída."
+        }
+        failure {
+            echo "Pipeline falhou. Verifique os logs."
+        }
+    }
+}
