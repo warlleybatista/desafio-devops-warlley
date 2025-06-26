@@ -14,7 +14,8 @@ A estratégia centra-se no conceito de "GitOps", onde o repositório Git se torn
 
 A seguir, apresentamos o diagrama de arquitetura que ilustra o fluxo completo do desenvolvimento à produção.
 
-![Diagrama de Arquitetura CI/CD](../diagrams/arquitetura_proposta1.png)
+![image](https://github.com/user-attachments/assets/56614635-7589-4e9f-996b-234fa942ad8a)
+
 
 ### Componentes Chave:
 
