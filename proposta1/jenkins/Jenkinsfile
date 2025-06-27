@@ -22,15 +22,15 @@ spec:
     }
 
     environment {
-        // --- PREENCHA COM SEUS DADOS ---
+        // --- CONFIGURAÇÕES DO AMBIENTE (SUBSTITUA PELOS SEUS VALORES REAIS OU DE EXEMPLO) ---
         // Exemplo: 123456789012.dkr.ecr.us-east-1.amazonaws.com/minha-app
-        ECR_REPO = 'SUA_CONTA_AWS.dkr.ecr.SUA_REGIAO.amazonaws.com/minha-app'
+        ECR_REPO = '123456789012.dkr.ecr.us-east-1.amazonaws.com/desafio-app' // Substitua pela sua URL de ECR
         APP_NAME = 'minha-app'
-        // Exemplo: https://github.com/warlleybatista/desafio-devops-manifests.git
-        GIT_MANIFESTS_REPO = 'https://github.com/SEU_USUARIO/SEU_REPO_MANIFESTS.git'
+        // Exemplo: https://github.com/seualias/desafio-devops-manifests.git
+        GIT_MANIFESTS_REPO = 'https://github.com/exemplo-usuario/desafio-devops-manifests.git' // Substitua pelo seu repositório de manifests GitOps
         GIT_MANIFESTS_BRANCH_HOMOLOG = 'homolog'
         GIT_MANIFESTS_BRANCH_PROD = 'main'
-        // --- FIM DOS DADOS A PREENCHER ---
+        // --- FIM DAS CONFIGURAÇÕES ---
     }
 
     stages {
