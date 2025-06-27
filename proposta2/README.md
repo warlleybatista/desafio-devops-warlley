@@ -23,7 +23,7 @@ A solução proposta visa desacoplar a lógica de contorno de IP do processo de 
 
 ### Componentes Chave:
 
-* *cheduler / Trigger (Ex: EventBridge + Lambda): Inicia o processo, colocando URLs ou tarefas de scrapping em uma fila SQS em intervalos definidos ou em resposta a eventos.
+* Scheduler / Trigger (Ex: EventBridge + Lambda): Inicia o processo, colocando URLs ou tarefas de scrapping em uma fila SQS em intervalos definidos ou em resposta a eventos.
 * Amazon SQS (Simple Queue Service):
     * ila de Tarefas (Main Queue): Atua como um buffer para as URLs/tarefas de scrapping. As Lambdas worker puxam tarefas daqui.
     * Fila de Re-tentativas / DLQ (Dead-Letter Queue): Mensagens que falham devido a bloqueios de IP ou outros erros transitórios são reenviadas para esta fila com um atraso, permitindo que um IP diferente (do pool de proxies) seja tentado na próxima vez. Mensagens com falhas persistentes vão para uma DLQ final para análise.
