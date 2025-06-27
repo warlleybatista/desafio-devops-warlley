@@ -12,13 +12,12 @@ Este repositório apresenta as soluções propostas para o Desafio DevOps, abord
 O projeto está organizado nas seguintes pastas para facilitar a navegação e compreensão das propostas:
 
 * \proposta1/\: Contém a documentação detalhada e exemplos de código relacionados à solução de CI/CD.
-    * \proposta1/app-code/\: Exemplo de código de uma aplicação web simples com seu \`Dockerfile\`.
-    * \proposta1/jenkins/\: \`Jenkinsfile\` de exemplo ilustrando o pipeline de CI/CD.
-    * \proposta1/kubernetes/\: Manifestos Kubernetes (\`.yaml\`) de exemplo para deploy.
-* \proposta2/\: Abriga a documentação e exemplos de código para a solução otimizada de scrapping.
-    * \proposta2/lambda-scrapper/\: Pseudocódigo Python para a função Lambda scrapper, \`Dockerfile\` e \`requirements.txt\`.
-    * \proposta2/terraform/\: Exemplo de código Terraform para provisionar os recursos AWS da solução.
-* \diagrams/\: Armazena os diagramas de arquitetura visual para ambas as propostas.
+    * /proposta1/app-code/: Exemplo de código de uma aplicação web simples com seu "Dockerfile".
+    * /proposta1/jenkins/: "Jenkinsfile" de exemplo ilustrando o pipeline de CI/CD.
+    * /proposta1/kubernetes/\: Manifestos Kubernetes ".yaml" de exemplo para deploy.
+* /proposta2/: Abriga a documentação e exemplos de código para a solução otimizada de scrapping.
+    * /proposta2/lambda-scrapper/\: Pseudocódigo Python para a função Lambda scrapper, "Dockerfile" e "requirements.txt".
+    * /proposta2/terraform/: Exemplo de código Terraform para provisionar os recursos AWS da solução.
 
 
 ### Proposta 1: CI/CD com Jenkins e GitOps para Zero Downtime
