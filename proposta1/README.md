@@ -4,7 +4,7 @@
 
 ###  Visão Geral da Solução ###
 
-Esta proposta detalha a implementação de um pipeline de Integração Contínua (CI) e Entrega Contínua (CD) utilizando "Jenkins" para orquestração, "Argo CD" para um fluxo de ""GitOps", e "Kubernetes (Amazon EKS)" como plataforma de deploy. O objetivo principal é garantir "deploys sem inoperabilidade (zero downtime)", alta performance, segurança, disponibilidade e escalabilidade, enquanto otimiza os custos.
+Esta proposta detalha a implementação de um pipeline de Integração Contínua (CI) e Entrega Contínua (CD) utilizando "Jenkins" para orquestração, "Argo CD" para um fluxo de "GitOps", e "Kubernetes (Amazon EKS)" como plataforma de deploy. O objetivo principal é garantir "deploys sem inoperabilidade (zero downtime)", alta performance, segurança, disponibilidade e escalabilidade, enquanto otimiza os custos.
 
 A estratégia centra-se no conceito de "GitOps", onde o repositório Git se torna a única fonte de verdade para a configuração da aplicação e da infraestrutura.
 
@@ -43,10 +43,10 @@ A seguir, apresentamos o diagrama de arquitetura que ilustra o fluxo completo do
 
 ### Fluxo da Pipeline (Homologação e Produção)
 
-A pipeline é definida como código no \`Jenkinsfile\` e opera da seguinte forma:
+A pipeline é definida como código no "Jenkinsfile" e opera da seguinte forma:
 
 1.  Commit do Código (CI):
-    * Um desenvolvedor faz um push de novas alterações de código para o repositório da aplicação (ex: \`main\` ou um branch de feature).
+    * Um desenvolvedor faz um push de novas alterações de código para o repositório da aplicação (ex: "main" ou um branch de feature).
 
 2.  Trigger da Pipeline no Jenkins:
     * O Jenkins detecta a mudança no repositório de código e inicia automaticamente a pipeline de CI/CD.
@@ -54,20 +54,20 @@ A pipeline é definida como código no \`Jenkinsfile\` e opera da seguinte forma
 3.  Build e Testes:
     * Um Jenkins Agent (executando em um Pod Kubernetes dinâmico) clona o repositório.
     * O código da aplicação é compilado e os testes unitários/de integração são executados para garantir a qualidade.
-    * Exemplo no \`Jenkinsfile\` (jenkins/Jenkinsfile).
+    * Exemplo no "Jenkinsfile" (jenkins/Jenkinsfile).
 
 4.  Construção e Push da Imagem Docker:
-    * Com base no \`Dockerfile\` da aplicação, uma nova imagem Docker é construída.
+    * Com base no "Dockerfile" da aplicação, uma nova imagem Docker é construída.
     * Essa imagem é tagueada (ex: \`v<BUILD_NUMBER>\`) e enviada para o Amazon ECR.
-    * *Exemplo no \`Dockerfile\` (app-code/Dockerfile).*
+    * Exemplo no "Dockerfile" (app-code/Dockerfile).
 
 5.  Atualização do Repositório GitOps (CD para Homologação):
     * Ponto crucial do GitOps: O Jenkins não faz o deploy diretamente no Kubernetes. Em vez disso, ele atualiza a tag da imagem no arquivo de manifesto Kubernetes (ex: \`minha-app-homolog.yaml\`) dentro do repositório GitOps de manifests.
-    * Esta alteração (um novo commit com a nova tag da imagem) é então enviada para o branch de homologação (\`homolog\`) do repositório de manifests.
-    * Veja como a atualização do manifest é orquestrada no \`Jenkinsfile\` (jenkins/Jenkinsfile).
+    * Esta alteração (um novo commit com a nova tag da imagem) é então enviada para o branch de homologação "homolog" do repositório de manifests.
+    * Veja como a atualização do manifest é orquestrada no "Jenkinsfile" (jenkins/Jenkinsfile).
 
 6.  Sincronização e Deploy do Argo CD:
-    * O Argo CD, que está continuamente monitorando o branch \`homolog\` do repositório de manifests, detecta a nova tag da imagem.
+    * O Argo CD, que está continuamente monitorando o branch "homolog" do repositório de manifests, detecta a nova tag da imagem.
     * Ele puxa as mudanças e inicia automaticamente o processo de sincronização/deploy no cluster EKS.
     * O Kubernetes executa uma estratégia de Rolling Update, substituindo gradualmente os pods antigos pelos novos, sem interromper o serviço.
     * Exemplo de manifesto Kubernetes (kubernetes/minha-app-homolog.yaml).
@@ -77,10 +77,10 @@ A pipeline é definida como código no \`Jenkinsfile\` e opera da seguinte forma
     * Com a aprovação, o processo de deploy se estende para o ambiente de produção.
 
 8.  Atualização do Repositório GitOps (CD para Produção):
-    * Similar ao passo 5, o Jenkins atualiza o manifesto de produção (ex: \`minha-app-prod.yaml\`) no branch \`main\` (ou \`prod\`) do repositório GitOps.
+    * Similar ao passo 5, o Jenkins atualiza o manifesto de produção (ex: minha-app-prod.yaml) no branch "main" do repositório GitOps.
 
 9.  Deploy em Produção via Argo CD:
-    * O Argo CD detecta a mudança no branch \`main\` e sincroniza o deploy da nova versão da aplicação no ambiente de produção do EKS, também utilizando Rolling Update.
+    * O Argo CD detecta a mudança no branch "main" e sincroniza o deploy da nova versão da aplicação no ambiente de produção do EKS, também utilizando Rolling Update.
 
 ---
 
