@@ -124,7 +124,7 @@ A pipeline é definida como código no "Jenkinsfile" e opera da seguinte forma:
 
 ---
 
-### Como Executar e Testar esta Proposta Localmente (Simulação)
+### Como Executar e Testar esta Proposta Localmente 
 
 Esta proposta foca na arquitetura e automação de CI/CD. A execução completa em um ambiente real requer infraestrutura AWS e um cluster Kubernetes. No entanto, você pode simular partes do processo ou preparar o ambiente para um deploy futuro.
 
