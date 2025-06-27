@@ -21,7 +21,7 @@ O projeto está organizado nas seguintes pastas para facilitar a navegação e c
 * \diagrams/\: Armazena os diagramas de arquitetura visual para ambas as propostas.
 
 
-##3 Proposta 1: CI/CD com Jenkins e GitOps para Zero Downtime
+### Proposta 1: CI/CD com Jenkins e GitOps para Zero Downtime
 
 Nesta seção, detalhamos a concepção de uma pipeline de CI/CD robusta, utilizando Jenkins para orquestração e Argo CD para um deploy GitOps em um cluster Kubernetes (EKS). O foco é garantir a entrega contínua de aplicações com mínima ou nenhuma interrupção, alta performance e escalabilidade, enquanto se mantém a segurança e a otimização de custos.
 
@@ -41,7 +41,7 @@ Para entender a análise crítica, a nova arquitetura proposta, os ganhos espera
 
 
 
-##3 Tecnologias Envolvidas
+### Tecnologias Envolvidas
 
 As principais tecnologias e conceitos empregados na concepção das soluções incluem:
 
