@@ -121,3 +121,40 @@ A pipeline é definida como código no "Jenkinsfile" e opera da seguinte forma:
 * Jenkins Agents Dinâmicos: Pagamento por recursos apenas quando usados, em vez de servidores Jenkins fixos e superprovisionados.
 * EKS (Gerenciado): Reduz o esforço operacional de gerenciar o cluster Kubernetes em comparação com uma configuração auto-gerenciada.
 * ALB: Custo-benefício para balanceamento de carga em comparação com outras soluções.
+
+---
+
+### Como Executar e Testar esta Proposta Localmente (Simulação)
+
+Esta proposta foca na arquitetura e automação de CI/CD. A execução completa em um ambiente real requer infraestrutura AWS e um cluster Kubernetes. No entanto, você pode simular partes do processo ou preparar o ambiente para um deploy futuro.
+
+### Pré-requisitos Específicos
+
+* Docker e Docker Compose (já mencionados no README principal).
+* Minikube ou Kind: Para simular um cluster Kubernetes localmente.
+    * [Instalar Minikube](https://minikube.sigs.k8s.io/docs/start/)
+    * [Instalar Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+
+### Passos de Simulação / Preparação
+
+1.  Navegue para a pasta da Proposta 1:
+    ```bash
+    cd ../proposta1
+    ```
+2.  Construa a imagem Docker da aplicação (exemplo):
+    ```bash
+    docker build -t minha-app-exemplo:latest .
+    ```
+3.  Simule a execução do Jenkins (com Docker Compose):
+    * Se você tiver um `docker-compose.yml` para subir o Jenkins localmente:
+        ```bash
+        docker-compose up -d
+        ```
+    * Acesse o Jenkins em `http://localhost:8080` e configure a pipeline usando o `Jenkinsfile` fornecido.
+4.  Simule o deploy no Kubernetes (com Minikube/Kind):
+    * Se você tiver um cluster local configurado:
+        ```bash
+        kubectl apply -f k8s-manifests/
+        ```
+    * (verificar o deploy, ex: `kubectl get pods`, `kubectl get svc`)
+
