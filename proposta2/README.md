@@ -18,7 +18,8 @@ O cenário hipotético apresenta um sistema de scrapping que, ao detectar um blo
 
 A solução proposta visa desacoplar a lógica de contorno de IP do processo de scrapping, utilizando serviços gerenciados da AWS para maior eficiência, recursividade, performance e escalabilidade, com um foco significativo na redução de custos.
 
-[Diagrama de Arquitetura Scrapping Otimizado](../diagrams/arquitetura_proposta2.png)
+![image](https://github.com/user-attachments/assets/31cb20d5-acb6-4f30-9e6c-2d3a5c69b10f)
+
 
 ### Componentes Chave:
 
