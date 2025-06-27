@@ -52,3 +52,37 @@ As principais tecnologias e conceitos empregados na concepção das soluções i
 * Serviços Cloud (AWS): AWS Lambda, Amazon SQS, Amazon S3, Amazon ECR, Amazon ALB (Application Load Balancer)
 * Linguagens de Script: Groovy (para Jenkinsfile), Python (para lógica de scrapping na Lambda)
 * Diagramação: Ferramentas de design de arquitetura (ex: Visual Paradigm Online)
+
+---
+
+### Como Executar o Projeto
+
+Para configurar e executar este projeto localmente, siga os passos abaixo. Certifique-se de ter os pré-requisitos instalados em sua máquina.
+
+### Pré-requisitos
+
+* Git: Para clonar o repositório.
+* Docker e Docker Compose: Essenciais para a execução local das aplicações e serviços.
+    * [Instalar Docker](https://docs.docker.com/get-docker/)
+    * [Instalar Docker Compose](https://docs.docker.com/compose/install/)
+* Terraform (Opcional, para simulação de IaC local): Se você pretende testar os arquivos `.tf` localmente.
+    * [Instalar Terraform](https://developer.hashicorp.com/terraform/downloads)
+* AWS CLI (Opcional, para credenciais e interações com AWS): Se você pretende interagir com serviços AWS diretamente da linha de comando.
+    * [Instalar AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+    * [Configurar AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-configure.html)
+
+### Passos de Instalação e Configuração
+
+1.  Clone o repositório:
+    ```bash
+    git clone [https://github.com/warlleybatista/desafio-devops-warlley.git](https://github.com/warlleybatista/desafio-devops-warlley.git)
+    cd desafio-devops-warlley
+    ```
+2.  Navegue até a pasta da proposta desejada:
+    * Para a Proposta 1 (CI/CD): `cd proposta1`
+    * Para a Proposta 2 (Scrapping): `cd proposta2`
+3.  Siga as instruções específicas de cada proposta:
+    * Detalhes sobre como executar e testar cada solução estão nos arquivos `README.md` dentro de suas respectivas pastas:
+        * [Proposta 1: CI/CD com Jenkins e GitOps](./proposta1/README.md)
+        * [Proposta 2: Scrapping Web Escalável e Resiliente](./proposta2/README.md)
+
