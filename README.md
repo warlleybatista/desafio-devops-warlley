@@ -41,7 +41,7 @@ Para entender a análise crítica, a nova arquitetura proposta, os ganhos espera
 
 
 
-##3# Tecnologias Envolvidas
+##3 Tecnologias Envolvidas
 
 As principais tecnologias e conceitos empregados na concepção das soluções incluem:
 
