@@ -95,3 +95,46 @@ Para simular uma invocação Lambda localmente (com um \event.json\ na mesma pas
 docker run -it --rm -v "$(pwd)/event.json:/var/task/event.json" meu-scrapper-lambda:latest lambda_handler event.json
 /
 Nota: A execução local simulará o fluxo, mas não interage com serviços AWS reais (SQS/S3) a menos que configurado com ferramentas como LocalStack.
+
+---
+
+### Como Executar e Testar esta Proposta Localmente
+
+Você pode executar o scrapper e o serviço de proxy localmente usando Docker Compose para simular o ambiente.
+
+### Pré-requisitos Específicos
+
+* Docker e Docker Compose (já mencionados no README principal).
+
+### Passos de Execução Local
+
+1.  Navegue para a pasta da Proposta 2:
+    ```bash
+    cd ../proposta2
+    ```
+2.  Suba os serviços com Docker Compose:
+    ```bash
+    docker-compose up --build -d
+    ```
+    * Isso irá construir a imagem do scrapper e do proxy (se aplicável) e iniciar os contêineres.
+3.  Verifique se os contêineres estão rodando:
+    ```bash
+    docker ps
+    ```
+4.  Dispare uma execução de teste (exemplo):
+    * Se o seu scrapper tiver um endpoint HTTP para ser disparado:
+        ```bash
+        curl http://localhost:8000/scrap?url=[https://example.com](https://example.com)
+        ```
+    * Se for um script Python a ser executado manualmente dentro do contêiner:
+        ```bash
+        docker exec -it <nome_do_container_scrapper> python /app/scrapper.py [https://example.com](https://example.com)
+        ```
+5.  Verifique os dados raspados:
+    ```bash
+    docker logs <nome_do_container_scrapper>
+    ```
+6.  Para parar os serviços:
+    ```bash
+    docker-compose down
+    ```
