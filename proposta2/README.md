@@ -58,7 +58,7 @@ A solução proposta visa desacoplar a lógica de contorno de IP do processo de 
 ### 1. Performance Otimizada:
 
 * Paralelismo Natural: Múltiplas Lambdas podem processar tarefas da SQS simultaneamente, acelerando o processo de scrapping.
-* Re-tentativas com Backoff: A fila SQS com \DelaySeconds\ evita ataques de "martelo" em IPs bloqueados e permite que o proxy rotativo troque de IP antes da próxima tentativa.
+* Re-tentativas com Backoff: A fila SQS com /DelaySeconds/ evita ataques de "martelo" em IPs bloqueados e permite que o proxy rotativo troque de IP antes da próxima tentativa.
 * Gerenciamento de Dependências: O empacotamento em Docker garante que todas as dependências (Selenium, Chromedriver, etc.) estejam pré-configuradas e prontas para uso, reduzindo o tempo de inicialização da Lambda.
 
 ### 2. Recursividade (Resiliência a Bloqueios):
@@ -83,15 +83,15 @@ A solução proposta visa desacoplar a lógica de contorno de IP do processo de 
 
 ### Validação Local com Docker
 
-O componente \proposta2/lambda-scrapper/\ foi projetado para ser empacotado como uma imagem Docker, que é a forma como a AWS Lambda opera funções containerizadas. É possível construir e executar esta imagem Docker localmente para validar a lógica do scrapper e suas dependências.
+O componente /proposta2/lambda-scrapper/ foi projetado para ser empacotado como uma imagem Docker, que é a forma como a AWS Lambda opera funções containerizadas. É possível construir e executar esta imagem Docker localmente para validar a lógica do scrapper e suas dependências.
 
 Para construir a imagem:
-\bash
+/bash
 docker build -t meu-scrapper-lambda ./proposta2/lambda-scrapper
-\
+/
 
 Para simular uma invocação Lambda localmente (com um \event.json\ na mesma pasta):
 \bash
-docker run -it --rm -v "\$(pwd)/event.json:/var/task/event.json" meu-scrapper-lambda:latest lambda_handler event.json
-\
+docker run -it --rm -v "$(pwd)/event.json:/var/task/event.json" meu-scrapper-lambda:latest lambda_handler event.json
+/
 Nota: A execução local simulará o fluxo, mas não interage com serviços AWS reais (SQS/S3) a menos que configurado com ferramentas como LocalStack.
